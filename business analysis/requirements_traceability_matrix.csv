@@ -1,0 +1,7 @@
+Requirement_ID,Analysis_Component,Validation,Status
+BR-01,Settlement Delay Analysis,UAT-05,Validated
+BR-02,Risk Indicator Analysis,UAT-07,Validated
+BR-03,Rejection Analysis,UAT-06,Validated
+BR-04,Repeat Claim Analysis,UAT-08,Validated
+BR-05,Data Quality Framework,UAT-01 to UAT-04,Validated
+BR-06,Outlier & Risk Review,Analytical Review,Validated

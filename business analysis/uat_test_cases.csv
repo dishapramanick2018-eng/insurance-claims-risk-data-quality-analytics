@@ -1,0 +1,9 @@
+Test_Case_ID,Requirement_ID,Scenario,Expected_Result,Test_Status
+UAT-01,BR-05,Duplicate Claim ID,Duplicate Claim ID should be flagged,Pass
+UAT-02,BR-05,Missing Policy ID,Record should be identified as a DQ exception,Pass
+UAT-03,BR-05,Approved amount exceeds claim amount,Financial consistency exception should be raised,Pass
+UAT-04,BR-05,Settlement date before claim date,Lifecycle consistency exception should be raised,Pass
+UAT-05,BR-01,Settled claim exceeds 30 days,Delayed claim flag should equal True,Pass
+UAT-06,BR-03,Rejected claim has no rejection reason,Conditional completeness exception should be raised,Pass
+UAT-07,BR-02,Claim meets multiple risk indicators,Risk score and segment should be generated,Pass
+UAT-08,BR-04,Previous claims >= 2,Repeat claim flag should equal True,Pass

@@ -1,0 +1,11 @@
+DQ_Rule,DQ_Dimension,Failed_Records,Severity,Business_Impact,Failure_Rate_%,Passed_Records,Pass_Rate_%
+Duplicate Claim ID,Uniqueness,25,Critical,May double-count claims and distort claim cost reporting,0.5,4975,99.5
+Missing Policy ID,Completeness,35,Critical,Claim cannot be reliably linked to an insurance policy,0.7,4965,99.3
+Missing Customer ID,Completeness,20,High,Prevents reliable customer-level and repeat-claim analysis,0.4,4980,99.6
+Missing Provider ID,Completeness,25,Medium,Limits provider-level performance and risk analysis,0.5,4975,99.5
+Invalid Claim Amount,Validity,6,Critical,Can distort financial exposure and claims severity metrics,0.12,4994,99.88
+Invalid Premium Amount,Validity,6,High,Affects premium-to-claim and risk calculations,0.12,4994,99.88
+Approved Amount > Claim Amount,Consistency,24,Critical,"May indicate payment, processing, or source-data errors",0.48,4976,99.52
+Settlement Before Claim Date,Consistency,15,Critical,Violates the expected claims lifecycle sequence,0.3,4985,99.7
+Invalid Customer Age,Validity,7,High,May affect customer segmentation and underwriting analysis,0.14,4993,99.86
+Rejected Claim Missing Rejection Reason,Conditional Completeness,30,High,Reduces transparency of rejection analysis and operational reporting,0.6,4970,99.4
