@@ -1,133 +1,201 @@
-# Insurance Claims Risk, Data Quality & Process Analytics
+# 🛡️ Insurance Claims Risk, Data Quality & Process Analytics
 
-## Project Overview
+![Python](https://img.shields.io/badge/Python-Analytics-3776AB?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?logo=pandas&logoColor=white)
+![Data Quality](https://img.shields.io/badge/Data%20Quality-Validation-2E8B57)
+![Insurance](https://img.shields.io/badge/Domain-Insurance-6F42C1)
+![Risk Analytics](https://img.shields.io/badge/Risk-Analytics-C62828)
+![Business Analysis](https://img.shields.io/badge/Business-Analysis-E67E22)
+![UAT](https://img.shields.io/badge/UAT-Validated-455A64)
 
-This project analyzes a synthetic insurance claims portfolio from three connected perspectives: data quality, claims operations, and risk prioritization.
+## 📌 Project Overview
 
-The project demonstrates an end-to-end analytical workflow covering business-rule validation, data-quality exception management, claims lifecycle analysis, root-cause analysis, transparent risk indicators, business requirements, UAT, and process improvement.
+This project analyzes a **synthetic insurance claims portfolio** from three connected perspectives: **data quality, claims operations, and risk prioritization**.
 
-## Business Objectives
+Rather than focusing only on dashboarding, the project demonstrates an end-to-end analytical workflow covering **business-rule validation, data-quality exception management, claims lifecycle analysis, root-cause analysis, transparent risk indicators, business requirements, UAT, and process improvement**.
 
-- Assess the reliability of claims data
-- Identify drivers of settlement delays
-- Analyze rejection patterns
-- Identify claims requiring additional risk review
-- Analyze repeat-claim behavior
-- Identify operational bottlenecks
-- Recommend data-quality and process controls
+> **Portfolio note:** The dataset is synthetic and was created solely for portfolio and analytical demonstration purposes.
 
-## Dataset
+---
 
-- Raw claims: 5,000
-- Analysis-ready claims: 4,854
-- Data-quality exception records: 208
-- Analytical exclusions due to critical issues: 146
+## 🎯 Business Objectives
 
-The dataset used in this project is synthetic and was created solely for portfolio and analytical demonstration purposes.
+| Objective | Business Question |
+|---|---|
+| 🔍 Data Quality | Can the claims data be trusted for downstream analysis and reporting? |
+| ⏱️ Settlement Performance | Which policy/region segments show settlement delays? |
+| ❌ Rejections | What are the major recorded rejection reasons? |
+| 🔁 Repeat Claims | Does repeat-claim behavior show a different risk profile? |
+| 🛡️ Risk Prioritization | Which claims should be prioritized for further review? |
+| ⚙️ Process Improvement | Which controls can improve claims operations and data quality? |
 
-## Data Quality Findings
+---
 
-A business-rule-driven data-quality assessment identified:
+## 🗂️ Dataset Snapshot
 
-- 25 duplicated Claim IDs affecting 50 records
-- 35 missing Policy IDs
-- 20 missing Customer IDs
-- 25 missing Provider IDs
-- 24 records where approved amount exceeded claimed amount
-- 15 records with settlement dates preceding claim dates
-- 30 rejected claims without a rejection reason
-- 6 invalid claim amounts
-- 6 invalid premium amounts
+| Metric | Value |
+|---|---:|
+| Raw Claims | **5,000** |
+| Analysis-Ready Claims | **4,854** |
+| Records with ≥1 DQ Exception | **208 (4.16%)** |
+| Analytical Exclusions for Critical Issues | **146** |
+| Total Claimed Amount | **~₹25.78 Cr** |
+| Total Approved Amount | **~₹14.66 Cr** |
 
-4.16% of records contained at least one identified data-quality exception.
+---
 
-Duplicate Claim IDs were not automatically deleted because no exact duplicate rows existed. They were retained as identifier-integrity exceptions for source-system investigation.
+## 🧹 Data Quality Assessment
 
-## Key Business Findings
+The business-rule-driven validation identified the following exceptions:
 
-### Claims Exposure
+| Data Quality Rule | Exceptions |
+|---|---:|
+| Duplicate Claim IDs | **25 IDs / 50 affected rows** |
+| Missing Policy IDs | **35** |
+| Missing Customer IDs | **20** |
+| Missing Provider IDs | **25** |
+| Approved Amount > Claim Amount | **24** |
+| Settlement Date < Claim Date | **15** |
+| Rejected Claim Missing Rejection Reason | **30** |
+| Invalid Claim Amount | **6** |
+| Invalid Premium Amount | **6** |
 
-The analysis-ready portfolio contained 4,854 claims representing approximately ₹25.78 crore in claimed value and ₹14.66 crore in approved value.
+### 🔎 Important Data-Quality Decision
 
-Health insurance generated the highest aggregate claim exposure at approximately ₹9.93 crore, while Home insurance recorded the highest average claim value at approximately ₹77,975.
+The duplicated Claim IDs were **not automatically deleted** because the analysis found **no exact duplicate rows**. They were retained as **identifier/key-integrity exceptions** for source-system investigation rather than treated as redundant records.
 
-### Settlement Performance
+---
 
-Using a 30-day analytical threshold, Travel claims recorded the highest overall delay rate at 64.34%.
+## 📊 Key Business Findings
 
-The strongest policy-region hotspot was Travel claims in the South region:
+| Area | Finding |
+|---|---|
+| 💰 **Claims Exposure** | Health generated the highest aggregate claim exposure at **~₹9.93 Cr**, while Home recorded the highest average claim value at **~₹77,975**. |
+| ⏱️ **Settlement Performance** | Travel recorded the highest overall delay rate at **64.34%** using a 30-day analytical threshold. |
+| 📍 **Operational Hotspot** | Travel claims in the South region had **60 settled claims**, **47.67 average settlement days**, and a **76.67% delay rate**. |
+| ❌ **Rejection Analysis** | Coverage Limit was the most common recorded rejection reason (**131 claims**), followed by Late Notification (**120**) and Suspected Misrepresentation (**119**). |
+| 🔁 **Repeat Claims** | Repeat claims had an average risk score of **3.48** versus **1.51** for non-repeat claims, despite not having a higher average claim amount. |
+| 🛡️ **Risk Prioritization** | **256 claims (5.27%)** were classified as High Risk for further review. |
+| 📈 **Claim Severity** | IQR analysis identified **284 claim-value outliers** above approximately **₹130,888**. |
 
-- 60 settled claims
-- 47.67 average settlement days
-- 46 delayed claims
-- 76.67% delay rate
+> **Important:** “High Risk” represents rule-based prioritization for further investigation. It does **not** mean confirmed fraud.
 
-The 30-day threshold is an analytical assumption used for this case study and should not be interpreted as a contractual insurer SLA.
+> **SLA note:** The 30-day settlement threshold is an analytical assumption for this case study and should not be interpreted as an insurer's contractual SLA.
 
-### Rejection Analysis
+---
 
-Coverage Limit was the most common recorded rejection reason with 131 claims, followed by Late Notification (120) and Suspected Misrepresentation (119).
+## 🛡️ Transparent Risk-Prioritization Framework
 
-30 rejected claims had no rejection reason, highlighting a data-quality and process-control issue affecting rejection reporting.
+The project uses interpretable business rules rather than a black-box fraud classification model.
 
-### Repeat-Claim Behavior
+| Risk Segment | Claims |
+|---|---:|
+| 🟢 Low | **3,340** |
+| 🟠 Medium | **1,258** |
+| 🔴 High | **256** |
 
-Repeat-claim records did not show higher average claim amounts. However, their average rule-based risk score was 3.48 compared with 1.51 for non-repeat claims, supporting repeat behavior as a review indicator rather than a standalone fraud signal.
+Risk indicators include repeat-claim behavior, early-policy claims, unusually high claim-to-premium ratios, high-value claims, and reporting delays.
 
-### Risk Prioritization
+---
 
-The transparent rule-based framework classified:
+## 🔁 Repeat-Claim Analysis
 
-- 3,340 claims as Low risk
-- 1,258 claims as Medium risk
-- 256 claims as High risk
+| Segment | Claims | Avg. Claim Amount | Avg. Risk Score |
+|---|---:|---:|---:|
+| Non-Repeat | **3,933** | **₹53,357.96** | **1.51** |
+| Repeat | **921** | **₹52,050.56** | **3.48** |
 
-High-risk classification represents prioritization for further investigation and does not indicate confirmed fraud.
+**Interpretation:** Repeat-claim behavior did not correspond to higher average claim value, but it was associated with a substantially higher rule-based risk score. It is therefore treated as a **review indicator**, not a standalone fraud signal.
 
-### Claim Severity
+---
 
-IQR analysis identified 284 claim-value outliers above approximately ₹130,888.
+## 📋 Business Analysis Deliverables
 
-The largest claim was approximately ₹974,192. The analysis demonstrates that claim severity and analytical risk classification should be evaluated separately.
+- ✅ Business Requirements (BR-01 to BR-06)
+- ✅ User Stories & Acceptance Criteria
+- ✅ As-Is Claims Process
+- ✅ Proposed To-Be Claims Process
+- ✅ Gap & Root-Cause Analysis
+- ✅ 8 UAT Scenarios
+- ✅ Requirements Traceability Matrix (RTM)
+- ✅ Data-Quality Exception Reporting
+- ✅ Business Recommendations
 
-## Business Analysis Deliverables
+### As-Is → To-Be
 
-The project includes:
+**As-Is**
 
-- Business requirements
-- User stories and acceptance criteria
-- As-Is claims process
-- Proposed To-Be process
-- Root-cause analysis
-- 8 UAT scenarios
-- Requirements Traceability Matrix
-- Data-quality exception reporting
-- Business recommendations
+`Claim Submitted → Manual Data Validation → Document Review → Claim Assessment → Approval/Rejection → Settlement → Reporting`
 
-## Tools & Skills
+**Proposed To-Be**
 
-Python | Pandas | NumPy | Google Colab | Data Quality | Insurance Analytics | Risk Analytics | Business Analysis | Root Cause Analysis | UAT | Process Improvement
+`Claim Submitted → Automated DQ Validation → Critical Exception Queue → Rule-Based Risk Assessment → Review/Prioritization → SLA Monitoring → Approval/Rejection → Settlement → DQ/Operational Monitoring`
 
-## Repository Structure
+---
+
+## 🧪 UAT Coverage
+
+Eight UAT scenarios validate:
+
+- Duplicate Claim ID handling
+- Missing Policy ID detection
+- Financial consistency
+- Claim lifecycle/date consistency
+- Settlement delay flag
+- Rejection-reason completeness
+- Risk-indicator logic
+- Repeat-claim logic
+
+The RTM maps **BR-01 through BR-06** to the corresponding analysis and validation coverage.
+
+---
+
+## 💡 Business Recommendations
+
+1. Introduce automated data-quality controls before claims enter downstream reporting.
+2. Route critical DQ exceptions to a dedicated review queue rather than silently dropping records.
+3. Monitor settlement delays proactively at policy, region, and provider levels.
+4. Use transparent risk indicators to prioritize manual review without labeling claims as fraud.
+5. Standardize mandatory rejection-reason capture.
+6. Separate raw, exception, and analysis-ready datasets to preserve auditability.
+7. Define ownership and remediation workflows for recurring data-quality issues.
+
+---
+
+## 🛠️ Tools & Skills
+
+`Python` • `Pandas` • `NumPy` • `Google Colab` • `Data Quality` • `Insurance Analytics` • `Risk Analytics` • `Business Analysis` • `Root Cause Analysis` • `UAT` • `Process Improvement`
+
+---
+
+## 📁 Repository Structure
 
 ```text
+insurance-claims-risk-data-quality-analytics/
+│
 ├── README.md
+│
+├── business analysis/
+│   ├── requirements_traceability_matrix.csv
+│   └── uat_test_cases.csv
+│
 ├── data/
-│   ├── raw/
-│   │   └── insurance_claims_case_study.csv
-│   └── processed/
-│       └── claims_analysis_ready.csv
+│   ├── insurance_claims_case_study.csv
+│   └── claims_analysis_ready.csv
+│
 ├── notebook/
 │   └── Insurance_Claims_Risk_Analytics.ipynb
-├── outputs/
-│   ├── data_quality_report.csv
-│   ├── data_quality_exceptions.csv
-│   └── high_risk_claims_for_review.csv
-└── business_analysis/
-    ├── requirements_traceability_matrix.csv
-    └── uat_test_cases.csv
+│
+└── outputs/
+    ├── data_quality_report.csv
+    ├── data_quality_exceptions.csv
+    └── high_risk_claims_for_review.csv
 ```
 
-## Key Takeaway
+---
 
-This project demonstrates how data quality, business analysis, and analytical reasoning can be combined to improve insurance claims operations, identify process bottlenecks, and prioritize records for further review without treating analytical risk indicators as confirmed fraud.
+## 🚀 Key Takeaway
+
+This case study demonstrates how **data analytics, data quality, risk analysis, and business analysis** can work together to improve insurance claims operations.
+
+The project goes beyond identifying patterns: it translates analytical findings into **business requirements, validation controls, UAT scenarios, traceability, and process-improvement recommendations**.
